@@ -1,6 +1,6 @@
 # FAME '26 MDO Workspace
 
-Clone-and-run companion to [hadiDHD/fame-26-mdo](https://github.com/hadiDHD/fame-26-mdo). Pulls the published Eclipse Modeling desktop image and bind-mounts this repo's `Workspace/` into the container so your projects stay on the host.
+Clone-and-run host workspace for the FAME '26 Model-Driven Optimization Eclipse desktop. Pulls the published image and bind-mounts this repo's `Workspace/` into the container so your projects stay on the host.
 
 ---
 
@@ -74,4 +74,4 @@ docker compose down
 
 ## Image source
 
-The container image is built and published from [hadiDHD/fame-26-mdo](https://github.com/hadiDHD/fame-26-mdo) as `ghcr.io/hadidhd/fame-26-mdo:latest`.
+The container image is `ghcr.io/hadidhd/fame-26-mdo:latest`.
