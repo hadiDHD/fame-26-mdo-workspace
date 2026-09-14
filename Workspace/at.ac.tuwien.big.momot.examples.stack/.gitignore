@@ -1,0 +1,7 @@
+/bin/
+/output/
+/model/output/solutions/
+/xtend-gen/*
+!/xtend-gen/.gitkeep
+/src-gen/*
+!/src-gen/.gitkeep

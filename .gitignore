@@ -1,0 +1,9 @@
+# OS junk
+.DS_Store
+Thumbs.db
+desktop.ini
+*.log
+
+# Eclipse workspace metadata (recreated when Eclipse starts)
+Workspace/.metadata/
+Workspace/.recommenders/

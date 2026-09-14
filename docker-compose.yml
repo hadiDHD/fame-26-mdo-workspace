@@ -1,0 +1,9 @@
+services:
+  momot-desktop:
+    image: ghcr.io/hadidhd/fame-26-mdo:latest
+    container_name: fame-26-mdo-desktop
+    ports:
+      - "6080:6080"
+      - "5901:5901"
+    volumes:
+      - ./Workspace:/workspace
