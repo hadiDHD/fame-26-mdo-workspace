@@ -303,13 +303,14 @@ public final class BlockySimulator {
         Container current = first;
         GameState last = state;
         int min = annotatedDistanceAt(last, currentMin);
-        while (current != null && last.getStatus() == GameStatus.RUNNING && min != 0) {
+        while (current != null && last.getStatus() != GameStatus.CRASHED && min != 0) {
             Statement stmt = current.getStatement();
             ExecResult r = executeSingleLiteWithAnnotatedDistance(stmt, last, level, winCellType, min);
             last = r.last;
             min = r.minDistance;
             current = current.getNext();
         }
+        SimUtils.markWonIfStandingOnGoal(last, winCellType);
         return new ExecResult(last, min);
     }
 
@@ -344,6 +345,10 @@ public final class BlockySimulator {
                     loop.setStatus(GameStatus.CRASHED);
                     break;
                 }
+            }
+            if (loop.getStatus() == GameStatus.RUNNING && loop.getPosition() != null
+                    && loop.getPosition().getType() == winCellType) {
+                loop.setStatus(GameStatus.WON);
             }
             return new ExecResult(loop, loopMin);
         }
@@ -604,13 +609,14 @@ public final class BlockySimulator {
         Container current = first;
         GameState last = state;
         int min = minDistanceAt(last, distanceField, currentMin);
-        while (current != null && last.getStatus() == GameStatus.RUNNING && min != 0) {
+        while (current != null && last.getStatus() != GameStatus.CRASHED && min != 0) {
             Statement stmt = current.getStatement();
             ExecResult r = executeSingleLiteWithMinDistance(stmt, last, level, winCellType, distanceField, min);
             last = r.last;
             min = r.minDistance;
             current = current.getNext();
         }
+        SimUtils.markWonIfStandingOnGoal(last, winCellType);
         return new ExecResult(last, min);
     }
 
@@ -646,6 +652,10 @@ public final class BlockySimulator {
                     loop.setStatus(GameStatus.CRASHED);
                     break;
                 }
+            }
+            if (loop.getStatus() == GameStatus.RUNNING && loop.getPosition() != null
+                    && loop.getPosition().getType() == winCellType) {
+                loop.setStatus(GameStatus.WON);
             }
             return new ExecResult(loop, loopMin);
         }
@@ -718,22 +728,24 @@ public final class BlockySimulator {
     private static GameState executeContainerChain(Container first, GameState state, ExecutionTrace trace, Level level, CellType winCellType) {
         Container current = first;
         GameState last = state;
-        while (current != null && last.getStatus() == GameStatus.RUNNING) {
+        while (current != null && last.getStatus() != GameStatus.CRASHED) {
             Statement stmt = current.getStatement();
             last = executeSingle(stmt, last, trace, level, winCellType);
             current = current.getNext();
         }
+        SimUtils.markWonIfStandingOnGoal(last, winCellType);
         return last;
     }
 
     private static GameState executeContainerChainLite(Container first, GameState state, Level level, CellType winCellType) {
         Container current = first;
         GameState last = state;
-        while (current != null && last.getStatus() == GameStatus.RUNNING) {
+        while (current != null && last.getStatus() != GameStatus.CRASHED) {
             Statement stmt = current.getStatement();
             last = executeSingleLite(stmt, last, level, winCellType);
             current = current.getNext();
         }
+        SimUtils.markWonIfStandingOnGoal(last, winCellType);
         return last;
     }
 
@@ -796,6 +808,10 @@ public final class BlockySimulator {
                     loop.setStatus(GameStatus.CRASHED);
                     break;
                 }
+            }
+            if (loop.getStatus() == GameStatus.RUNNING && loop.getPosition() != null
+                    && loop.getPosition().getType() == winCellType) {
+                loop.setStatus(GameStatus.WON);
             }
             return loop;
         } else if (stmt instanceof IfStmt) {
@@ -869,6 +885,10 @@ public final class BlockySimulator {
                     loop.setStatus(GameStatus.CRASHED);
                     break;
                 }
+            }
+            if (loop.getStatus() == GameStatus.RUNNING && loop.getPosition() != null
+                    && loop.getPosition().getType() == winCellType) {
+                loop.setStatus(GameStatus.WON);
             }
             return loop;
         } else if (stmt instanceof IfStmt) {

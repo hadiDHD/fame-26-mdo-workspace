@@ -6,6 +6,8 @@ import blocky.Cell;
 import blocky.CellType;
 import blocky.Container;
 import blocky.Direction;
+import blocky.GameState;
+import blocky.GameStatus;
 import blocky.IfStmt;
 import blocky.Level;
 import blocky.Loop;
@@ -35,6 +37,23 @@ public final class SimUtils {
      * Infers a stable starting orientation if one is not explicitly set in the model.
      * Logic: pick the first non-wall neighbor (N, E, S, W order), fallback to NORTH.
      */
+    /**
+     * If the pegman is standing on the win cell and still {@code RUNNING}, mark {@code WON}.
+     * Does not override {@code CRASHED}.
+     */
+    public static void markWonIfStandingOnGoal(GameState state, CellType winCellType) {
+        if (state == null || winCellType == null) {
+            return;
+        }
+        if (state.getStatus() != GameStatus.RUNNING) {
+            return;
+        }
+        Cell pos = state.getPosition();
+        if (pos != null && pos.getType() == winCellType) {
+            state.setStatus(GameStatus.WON);
+        }
+    }
+
     public static Direction determineStartOrientation(Level level, Cell start) {
         if (level != null && level.eIsSet(BlockyPackage.Literals.LEVEL__START_ORIENTATION)) {
             return level.getStartOrientation();

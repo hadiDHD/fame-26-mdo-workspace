@@ -832,8 +832,8 @@ public class BlockyUI extends Application {
                    + "                var td = document.createElement('td'); "
                    + "                var val = p.objs[i]; "
                   + "                if (i === 0) { "
-                  + "                  if (val === -1) td.textContent = 'TRUE'; "
-                  + "                  else if (val === 0) td.textContent = 'FALSE'; "
+                  + "                  if (typeof val === 'number' && val <= -0.999) td.textContent = 'TRUE'; "
+                  + "                  else if (val === 0 || val === -0) td.textContent = 'FALSE'; "
                    + "                  else td.textContent = (val !== undefined && !isNaN(val)) ? val : '-'; "
                    + "                } else { "
                    + "                  td.textContent = (val !== undefined && !isNaN(val)) ? val : '-'; "
@@ -1966,19 +1966,14 @@ public class BlockyUI extends Application {
                 + "window.__injectDmBaselinePath = " + ImmediateFeedbackService.toJsonArray(engine.getDmBaselinePath()) + ";"
                 + "window.__injectDmSolutionPath = " + ImmediateFeedbackService.toJsonArray(engine.getDmSolutionPath()) + ";"
                 + "window.__injectDmCommonLen = " + engine.getDmCommonLen() + ";";
-            if (engine.isDmAlignedValid()) {
-                injectDm += "window.__injectQ = " + engine.getDmAlignedX() + ";"
-                          + "window.__injectS = " + engine.getDmAlignedY() + ";";
-            } else {
-                injectDm += "window.__injectQ = undefined; window.__injectS = undefined;";
-            }
+            // Do not move pegman to the aligned cell. MOMoT scores the full program from START;
+            // running it from a mid-path cell turns MOVE_FORWARD into a wall crash (often after a turn).
         } else {
             injectDm = ""
                 + "window.__injectDmEnabled = false;"
                 + "window.__injectDmBaselinePath = [];"
                 + "window.__injectDmSolutionPath = [];"
-                + "window.__injectDmCommonLen = 0;"
-                + "window.__injectQ = undefined; window.__injectS = undefined;";
+                + "window.__injectDmCommonLen = 0;";
         }
 
         suppressSync = true;
@@ -1986,6 +1981,7 @@ public class BlockyUI extends Application {
 
         try {
             System.out.println("[BlockyUI] loadMomotSolutionInPlace: preparing injection...");
+            injectMazeGeometry(level, webView.getEngine());
             
             // First, inject the XML and overlay data as global variables.
             webView.getEngine().executeScript("window.__momotXml = \"" + escapedForJson + "\";");
@@ -2046,16 +2042,17 @@ public class BlockyUI extends Application {
                 "          }\n" +
                 "          if (!ok) logJS('CRITICAL: No injection method worked');\n" +
                 "\n" +
-                "                      // Teleport pegman to last common cell if available (DM/MoMoT result alignment)\n" +
-                "          if (window.__injectQ !== undefined && window.__injectS !== undefined) {\n" +
-                "            logJS('Teleporting pegman to aligned cell (' + window.__injectQ + ',' + window.__injectS + ')');\n" +
-                "            window.Q = window.__injectQ;\n" +
-                "            window.S = window.__injectS;\n" +
-                "            if (typeof window.__modelStartT === 'number') window.T = window.__modelStartT;\n" +
-                "            if (typeof Z === 'function') {\n" +
-                "              Z(window.Q, window.S, 4 * window.T);\n" +
-                "            }\n" +
-                "          }\n" +
+                          "          // Always replay a full MOMoT program from START, not from a DM-aligned mid-path cell.\n" +
+                          "          if (window.__injectNd !== undefined) {\n" +
+                          "            window.nd = window.__injectNd;\n" +
+                          "            window.Q = window.__injectNd.x;\n" +
+                          "            window.S = window.__injectNd.y;\n" +
+                          "          }\n" +
+                          "          if (typeof window.__modelStartT === 'number') window.T = window.__modelStartT;\n" +
+                          "          if (typeof Z === 'function' && window.Q !== undefined && window.S !== undefined) {\n" +
+                          "            Z(window.Q, window.S, 4 * window.T);\n" +
+                          "            logJS('Pegman reset to START (' + window.Q + ',' + window.S + ') T=' + window.T);\n" +
+                          "          }\n" +
                 "        } catch(e) {\n" +
                 "          logJS('Error applying blocks: ' + e);\n" +
                 "        }\n" +
@@ -2350,6 +2347,68 @@ public class BlockyUI extends Application {
     }
 
     /**
+     * Pushes the EMF map, start cell, goal/DMG marker, and start heading into the maze JS globals.
+     * Call this whenever a solution XMI is loaded so Blockly playback uses the same grid MOMoT scored.
+     */
+    private void injectMazeGeometry(Level level, WebEngine webEngine) {
+        if (level == null || level.getMap() == null || webEngine == null) {
+            return;
+        }
+        int[][] grid = engine.buildGridForWebView(level.getMap());
+        Cell startCell = engine.getStartCell(level.getMap());
+        Cell dmgCell = engine.getDmgCell(level.getMap());
+        Cell goalCell = engine.getGoalCell(level.getMap());
+        int levelId = Math.max(1, Math.min(10, level.getId()));
+        int maxBlocks = level.getMaxBlocks() <= 0 ? -1 : level.getMaxBlocks();
+        Direction startDir = SimUtils.determineStartOrientation(level, startCell);
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
+        for (int row = 0; row < grid.length; row++) {
+            sb.append("[");
+            for (int col = 0; col < grid[row].length; col++) {
+                if (col > 0) sb.append(",");
+                sb.append(grid[row][col]);
+            }
+            sb.append("]");
+            if (row < grid.length - 1) sb.append(",");
+        }
+        sb.append("]");
+        String gridJson = sb.toString();
+
+        try {
+            webEngine.executeScript("window.__injectGridJson = " + gridJson + ";");
+            webEngine.executeScript("window.X = window.__injectGridJson;");
+            if (grid.length > 0 && grid[0].length > 0) {
+                int rd = grid[0].length;
+                int qd = grid.length;
+                webEngine.executeScript("window.__injectQd = " + qd + "; window.__injectRd = " + rd + ";");
+                webEngine.executeScript("window.__injectSd = " + (50 * rd) + "; window.__injectTd = " + (50 * qd) + ";");
+                webEngine.executeScript("window.Qd = window.__injectQd; window.Rd = window.__injectRd;");
+                webEngine.executeScript("window.Sd = window.__injectSd; window.Td = window.__injectTd;");
+            }
+            if (startCell != null) {
+                webEngine.executeScript("window.__injectNd = {x: " + startCell.getX() + ", y: " + startCell.getY() + "};");
+                webEngine.executeScript("window.nd = window.__injectNd;");
+                webEngine.executeScript("window.Q = " + startCell.getX() + "; window.S = " + startCell.getY() + ";");
+            }
+            Cell odCell = dmgCell != null ? dmgCell : goalCell;
+            if (odCell != null) {
+                webEngine.executeScript("window.__injectOd = {x: " + odCell.getX() + ", y: " + odCell.getY() + "};");
+                webEngine.executeScript("window.od = window.__injectOd;");
+            }
+            webEngine.executeScript("window.__injectK = " + levelId + ";");
+            webEngine.executeScript("window.K = window.__injectK;");
+            webEngine.executeScript("window.__injectOdVal = " + (maxBlocks < 0 ? "Infinity" : String.valueOf(maxBlocks)) + ";");
+            webEngine.executeScript("window.Od = window.__injectOdVal;");
+            webEngine.executeScript("window.__modelStartT = " + engine.directionToT(startDir) + ";");
+            webEngine.executeScript("window.T = window.__modelStartT;");
+        } catch (Exception e) {
+            System.err.println("[BlockyUI] injectMazeGeometry failed: " + e.getMessage());
+        }
+    }
+
+    /**
      * Injects the loaded level state into the WebView: map grid, nd/od, metadata (K, Od, T, Q, S),
      * Blockly workspace XML, and resets pegman. Call with suppressSync already set and clear it after.
      */
@@ -2403,7 +2462,7 @@ public class BlockyUI extends Application {
             }
             webEngine.executeScript("window.__injectK = " + levelId + ";");
             webEngine.executeScript("window.__injectOdVal = " + (maxBlocks < 0 ? "Infinity" : String.valueOf(maxBlocks)) + ";");
-            webEngine.executeScript("window.__modelStartT = " + engine.directionToT(level.getStartOrientation()) + ";");
+            webEngine.executeScript("window.__modelStartT = " + engine.directionToT(SimUtils.determineStartOrientation(level, startCell)) + ";");
             // Immediate feedback overlay data (old stored trace vs new simulated trace).
             webEngine.executeScript(ImmediateFeedbackService.buildWindowInjectPathsScript(engine.getPastPath(), engine.getNewPath()));
             // Direct Manipulation (MoMoT results): baseline vs solution diff overlays.

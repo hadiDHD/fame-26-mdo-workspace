@@ -11,18 +11,18 @@ import blocky.ConditionKind;
  * We use String literals because Henshin casts enum-typed attributes from strings
  * (via EFactory#createFromString), and integer values are not valid for EEnums.
  */
-public final class RandomConditionKindLiteralValue implements IParameterValue<ConditionKind> {
+public final class RandomConditionKindLiteralValue implements IParameterValue<String> {
 	@Override
-	public ConditionKind getInitialValue() {
+	public String getInitialValue() {
 		return nextValue();
 	}
 
 	@Override
-	public ConditionKind nextValue() {
+	public String nextValue() {
 		int v = ThreadLocalRandom.current().nextInt(0, 3);
-		if (v == 0) return ConditionKind.CHECK_FORWARD;
-		if (v == 1) return ConditionKind.CHECK_LEFT;
-		return ConditionKind.CHECK_RIGHT;
+		if (v == 0) return ConditionKind.CHECK_FORWARD.getLiteral();
+		if (v == 1) return ConditionKind.CHECK_LEFT.getLiteral();
+		return ConditionKind.CHECK_RIGHT.getLiteral();
 	}
 }
 

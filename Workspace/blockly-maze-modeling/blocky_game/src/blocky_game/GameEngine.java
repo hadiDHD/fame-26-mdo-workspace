@@ -248,6 +248,13 @@ public class GameEngine {
             Resource outRes = resSet.createResource(URI.createFileURI(out.getAbsolutePath()));
 
             Game snapshot = currentGame != null ? EcoreUtil.copy(currentGame) : null;
+            if (snapshot != null && !snapshot.getLevels().isEmpty() && snapshot.getLevels().get(0) != null) {
+                Level lvl = snapshot.getLevels().get(0);
+                Body emptyBody = BlockyFactory.eINSTANCE.createBody();
+                Container emptyContainer = BlockyFactory.eINSTANCE.createContainer();
+                emptyBody.setFirstContainer(emptyContainer);
+                lvl.setSolution(emptyBody);
+            }
             ensureGameHasNonNullSolutions(snapshot);
             if (snapshot != null) {
                 outRes.getContents().add(snapshot);
@@ -662,20 +669,22 @@ public class GameEngine {
     private GameState executeContainerChain(Container first, GameState state, ExecutionTrace trace, CellType winCellType) {
         Container current = first;
         GameState last = state;
-        while (current != null && last.getStatus() == GameStatus.RUNNING) {
+        while (current != null && last.getStatus() != GameStatus.CRASHED) {
             last = executeSingle(current.getStatement(), last, trace, winCellType);
             current = current.getNext();
         }
+        SimUtils.markWonIfStandingOnGoal(last, winCellType);
         return last;
     }
 
     private GameState executeContainerChainWithLogs(Container first, GameState state, ExecutionTrace trace, List<String> logs, CellType winCellType) {
         Container current = first;
         GameState last = state;
-        while (current != null && last.getStatus() == GameStatus.RUNNING) {
+        while (current != null && last.getStatus() != GameStatus.CRASHED) {
             last = executeSingleWithLogs(current.getStatement(), last, trace, logs, winCellType);
             current = current.getNext();
         }
+        SimUtils.markWonIfStandingOnGoal(last, winCellType);
         return last;
     }
 
@@ -768,6 +777,10 @@ public class GameEngine {
                     break;
                 }
             }
+            if (loop.getStatus() == GameStatus.RUNNING && loop.getPosition() != null
+                    && loop.getPosition().getType() == winCellType) {
+                loop.setStatus(GameStatus.WON);
+            }
             return loop;
         } else if (stmt instanceof IfStmt) {
             IfStmt i = (IfStmt) stmt;
@@ -857,6 +870,10 @@ public class GameEngine {
                     if (logs != null) logs.add("Result: CRASH (empty loop body / no progress)");
                     break;
                 }
+            }
+            if (loop.getStatus() == GameStatus.RUNNING && loop.getPosition() != null
+                    && loop.getPosition().getType() == winCellType) {
+                loop.setStatus(GameStatus.WON);
             }
             return loop;
         } else if (stmt instanceof IfStmt) {

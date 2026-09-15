@@ -273,11 +273,12 @@ public final class DebuggingService {
             CellType winCellType) {
         Container current = first;
         GameState last = state;
-        while (current != null && last.getStatus() == GameStatus.RUNNING && last.getPosition().getType() != winCellType) {
+        while (current != null && last.getStatus() != GameStatus.CRASHED && last.getPosition().getType() != winCellType) {
             Statement stmt = current.getStatement();
             last = executeSingle(stmt, last, trace, map, logLines, winCellType);
             current = current.getNext();
         }
+        SimUtils.markWonIfStandingOnGoal(last, winCellType);
         return last;
     }
 
@@ -371,6 +372,10 @@ public final class DebuggingService {
                     loop.setStatus(GameStatus.CRASHED);
                     break;
                 }
+            }
+            if (loop.getStatus() == GameStatus.RUNNING && loop.getPosition() != null
+                    && loop.getPosition().getType() == winCellType) {
+                loop.setStatus(GameStatus.WON);
             }
             return loop;
         } else if (stmt instanceof IfStmt) {

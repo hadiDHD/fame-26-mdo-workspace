@@ -9,20 +9,21 @@ import blocky.AtomicStatementKind;
  * Supplies a random AtomicStatementKind literal name (TURN_LEFT / TURN_RIGHT / MOVE_FORWARD).
  *
  * We use String literals because Henshin casts enum-typed attributes from strings
- * (via EFactory#createFromString), and integer values are not valid for EEnums.
+ * (via EFactory#createFromString). Passing the Java enum can be stored as its
+ * integer value, which then loads as a different literal (MOVE_FORWARD=2 vs TURN_RIGHT=1).
  */
-public final class RandomAtomicKindLiteralValue implements IParameterValue<AtomicStatementKind> {
+public final class RandomAtomicKindLiteralValue implements IParameterValue<String> {
 	@Override
-	public AtomicStatementKind getInitialValue() {
+	public String getInitialValue() {
 		return nextValue();
 	}
 
 	@Override
-	public AtomicStatementKind nextValue() {
+	public String nextValue() {
 		int v = ThreadLocalRandom.current().nextInt(0, 3);
-		if (v == 0) return AtomicStatementKind.TURN_LEFT;
-		if (v == 1) return AtomicStatementKind.TURN_RIGHT;
-		return AtomicStatementKind.MOVE_FORWARD;
+		if (v == 0) return AtomicStatementKind.TURN_LEFT.getLiteral();
+		if (v == 1) return AtomicStatementKind.TURN_RIGHT.getLiteral();
+		return AtomicStatementKind.MOVE_FORWARD.getLiteral();
 	}
 }
 

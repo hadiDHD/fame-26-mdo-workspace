@@ -1,9 +1,16 @@
-# OS junk
+# Build outputs
+**/target/
+**/bin/
+*.class
+
+# Maven
+.mvn/
+
+# OS metadata
 .DS_Store
 Thumbs.db
-desktop.ini
 *.log
 
-# Eclipse workspace metadata (recreated when Eclipse starts)
+# Eclipse workspace metadata inside Workspace
 Workspace/.metadata/
 Workspace/.recommenders/

@@ -6,8 +6,6 @@ import java.util.Objects;
 
 import at.ac.tuwien.big.momot.problem.solution.TransformationSolution;
 import at.ac.tuwien.big.momot.search.fitness.EGraphMultiDimensionalFitnessFunction;
-import blocky.AtomicStatementKind;
-import blocky.ConditionKind;
 
 /**
  * Ensures required IN parameters of high-level units are set before Henshin execution.

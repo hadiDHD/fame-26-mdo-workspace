@@ -40,8 +40,8 @@ import org.eclipse.emf.henshin.interpreter.EGraph;
 import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.moeaframework.algorithm.NSGAII;
 import org.moeaframework.core.PRNG;
-import org.moeaframework.core.population.Population;
 import org.moeaframework.core.operator.OnePointCrossover;
+import org.moeaframework.core.population.Population;
 import org.moeaframework.core.selection.TournamentSelection;
 import org.moeaframework.util.progress.ProgressListener;
 

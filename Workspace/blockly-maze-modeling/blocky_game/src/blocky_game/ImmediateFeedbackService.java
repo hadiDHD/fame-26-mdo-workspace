@@ -267,11 +267,12 @@ public final class ImmediateFeedbackService {
     private static GameState executeContainerChain(Container first, GameState state, ExecutionTrace trace, GridMap map, CellType winCellType) {
         Container current = first;
         GameState last = state;
-        while (current != null && last.getStatus() == GameStatus.RUNNING) {
+        while (current != null && last.getStatus() != GameStatus.CRASHED) {
             Statement stmt = current.getStatement();
             last = executeSingle(stmt, last, trace, map, winCellType);
             current = current.getNext();
         }
+        SimUtils.markWonIfStandingOnGoal(last, winCellType);
         return last;
     }
 
@@ -326,6 +327,10 @@ public final class ImmediateFeedbackService {
                     loop.setStatus(GameStatus.CRASHED);
                     break;
                 }
+            }
+            if (loop.getStatus() == GameStatus.RUNNING && loop.getPosition() != null
+                    && loop.getPosition().getType() == winCellType) {
+                loop.setStatus(GameStatus.WON);
             }
             return loop;
         } else if (stmt instanceof IfStmt) {
