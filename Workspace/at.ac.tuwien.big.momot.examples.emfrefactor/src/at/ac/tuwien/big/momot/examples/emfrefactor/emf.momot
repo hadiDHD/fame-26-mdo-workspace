@@ -1,3 +1,5 @@
+package at.ac.tuwien.big.momot.examples.emfrefactor
+
 import org.eclipse.emf.ecore.EcorePackage
 import org.moeaframework.core.selection.TournamentSelection
 import org.moeaframework.core.operator.OnePointCrossover

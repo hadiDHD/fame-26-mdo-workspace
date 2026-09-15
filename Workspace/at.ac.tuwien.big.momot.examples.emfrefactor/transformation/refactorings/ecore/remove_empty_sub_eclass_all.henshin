@@ -44,7 +44,7 @@
             <nodes xmi:id="_mWFXMXNBEeWCuKh1fPOaTA" name="selectedEClass" incoming="_qB9oMxHwEeKSGqZuqrXSrQ">
               <type href="http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
             </nodes>
-            <edges xmi:id="_qB9oMxHwEeKSGqZuqrXSrQ" source="_qB9oMhHwEeKSGqZuqrXSrQ" target="_mWFXMXNBEeWCuKh1fPOaTA" index="">
+            <edges xmi:id="_qB9oMxHwEeKSGqZuqrXSrQ" source="_qB9oMhHwEeKSGqZuqrXSrQ" target="_mWFXMXNBEeWCuKh1fPOaTA">
               <type href="http://www.eclipse.org/emf/2002/Ecore#//EClass/eSuperTypes"/>
             </edges>
           </conclusion>
@@ -140,7 +140,7 @@
       <nodes xmi:id="_6Wcm93G8EeWnRe_tLrGeYw" outgoing="_6Wcm-HG8EeWnRe_tLrGeYw">
         <type href="http://www.eclipse.org/emf/2002/Ecore#//EPackage"/>
       </nodes>
-      <edges xmi:id="_6Wcm-HG8EeWnRe_tLrGeYw" source="_6Wcm93G8EeWnRe_tLrGeYw" target="_6Wcm9nG8EeWnRe_tLrGeYw" index="">
+      <edges xmi:id="_6Wcm-HG8EeWnRe_tLrGeYw" source="_6Wcm93G8EeWnRe_tLrGeYw" target="_6Wcm9nG8EeWnRe_tLrGeYw">
         <type href="http://www.eclipse.org/emf/2002/Ecore#//EPackage/eClassifiers"/>
       </edges>
     </lhs>

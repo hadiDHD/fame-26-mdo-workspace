@@ -84,8 +84,8 @@ public class ModularizationCalculator implements Serializable {
          metrics.modularizationQuality = metrics.cohesion
                / (metrics.cohesion + 0.5 * (metrics.nrIncomingDependencies + metrics.nrOutgoingDependencies));
       }
-      if(Double.isNaN(metrics.modularizationQuality)) {
-         System.err.println("Why :(");
+      if(Double.isNaN(metrics.modularizationQuality) || Double.isInfinite(metrics.modularizationQuality)) {
+         metrics.modularizationQuality = 0.0;
       }
       return metrics;
    }

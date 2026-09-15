@@ -75,7 +75,6 @@ search = {
 	
 	algorithms = {
 		NSGAIII : moea.createNSGAIII(
-				0, 6,
 				new TournamentSelection(2),
 				new OnePointCrossover(1.0), 
 				new TransformationPlaceholderMutation(0.10),

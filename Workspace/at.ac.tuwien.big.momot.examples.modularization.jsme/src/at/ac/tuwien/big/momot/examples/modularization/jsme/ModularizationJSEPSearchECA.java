@@ -304,7 +304,7 @@ public class ModularizationJSEPSearchECA {
       final SearchHelper _searchHelper = orchestration.getSearchHelper();
       final TransformationVariableMutation _transformationVariableMutation = new TransformationVariableMutation(
             _searchHelper, 0.10);
-      final IRegisteredAlgorithm<NSGAII> _createNSGAIII = moea.createNSGAIII(0, 6, _tournamentSelection,
+      final IRegisteredAlgorithm<NSGAII> _createNSGAIII = moea.createNSGAIII(_tournamentSelection,
             _onePointCrossover, _transformationPlaceholderMutation, _transformationVariableMutation);
       return _createNSGAIII;
    }
