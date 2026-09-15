@@ -28,4 +28,6 @@ Export-Package: at.ac.tuwien.big.momot.examples.stack,
  at.ac.tuwien.big.momot.examples.stack.stack,
  at.ac.tuwien.big.momot.examples.stack.stack.impl,
  at.ac.tuwien.big.momot.examples.stack.stack.util
-Import-Package: org.apache.log4j
+Import-Package: org.apache.log4j,
+ javax.inject;version="1.0.0";resolution:=optional,
+ jakarta.inject;version="[1.0.0,3.0.0)";resolution:=optional

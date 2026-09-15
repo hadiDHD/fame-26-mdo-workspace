@@ -1,6 +1,8 @@
 /bin/
 /output/
-/model/output/solutions/
+/model/output/
+/model/output_test/
+/comparison/
 /xtend-gen/*
 !/xtend-gen/.gitkeep
 /src-gen/*

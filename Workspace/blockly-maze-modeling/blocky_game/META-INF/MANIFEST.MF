@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: blocky_game
+Bundle-SymbolicName: blocky_game
+Bundle-Version: 1.0.0.qualifier
+Require-Bundle: blocky,
+ blocky_momot,
+ org.eclipse.emf.ecore,
+ org.eclipse.emf.ecore.xmi,
+ org.eclipse.core.runtime,
+ org.eclipse.xtext.xbase.lib,
+ at.ac.tuwien.big.momot.core,
+ at.ac.tuwien.big.moea
+Export-Package: blocky_game
+Bundle-ActivationPolicy: lazy

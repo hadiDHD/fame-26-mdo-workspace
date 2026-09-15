@@ -38,6 +38,27 @@ The scripts resolve paths from their own location, so you can invoke them from a
 
 ---
 
+## Pre-loaded Example Projects
+
+The workspace includes standalone benchmark and example MDO projects inside `./Workspace/`:
+- `at.ac.tuwien.big.momot.examples.cra`: Class-Responsibility Assignment optimization.
+- `at.ac.tuwien.big.momot.examples.ecore`: Metamodel modularization optimization.
+- `at.ac.tuwien.big.momot.examples.emfrefactor`: EMF Refactor transformation optimization.
+- `at.ac.tuwien.big.momot.examples.modularization.jsme`: Software module clustering (JSME benchmark).
+- `at.ac.tuwien.big.momot.examples.refactoring`: Software architecture refactoring optimization.
+- `at.ac.tuwien.big.momot.examples.stack`: Stack load-balancing problem.
+- `blockly-maze-modeling`: Blockly Games Maze application and MOMoT synthesis (`blocky_model`, `blocky_game`, `blocky_momot`).
+
+---
+
+## Adding projects
+
+Drop any custom project folder into `Workspace/`, then restart the container (`./run.sh` / `.\run.ps1`). Eclipse automatically detects the folder and opens it in Package Explorer.
+
+Edits inside Eclipse are saved to `./Workspace` on your host machine, and host-side edits show up in the container.
+
+---
+
 ## Stop
 
 ```bash
@@ -47,14 +68,6 @@ The scripts resolve paths from their own location, so you can invoke them from a
 ```powershell
 .\stop.ps1         # Windows PowerShell
 ```
-
----
-
-## Adding projects
-
-Drop a project folder into `Workspace/`, then restart the container (`./run.sh` / `.\run.ps1`). Eclipse detects the folder and opens it in Package Explorer.
-
-Edits inside Eclipse are saved to `./Workspace` on your machine, and host-side edits show up in the container.
 
 ---
 

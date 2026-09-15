@@ -16,6 +16,11 @@
 	<description>Parent POM for MOMoT example projects in the workspace.</description>
 
 	<modules>
+		<module>at.ac.tuwien.big.momot.examples.cra</module>
+		<module>at.ac.tuwien.big.momot.examples.ecore</module>
+		<module>at.ac.tuwien.big.momot.examples.emfrefactor</module>
+		<module>at.ac.tuwien.big.momot.examples.modularization.jsme</module>
+		<module>at.ac.tuwien.big.momot.examples.refactoring</module>
 		<module>at.ac.tuwien.big.momot.examples.stack</module>
 	</modules>
 </project>
