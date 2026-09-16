@@ -12,5 +12,9 @@ Thumbs.db
 *.log
 
 # Eclipse workspace metadata inside Workspace
-Workspace/.metadata/
+Workspace/.metadata/*
+!Workspace/.metadata/.plugins/
+!Workspace/.metadata/.plugins/org.eclipse.debug.core/
+!Workspace/.metadata/.plugins/org.eclipse.debug.core/.launches/
+!Workspace/.metadata/.plugins/org.eclipse.debug.core/.launches/*.launch
 Workspace/.recommenders/

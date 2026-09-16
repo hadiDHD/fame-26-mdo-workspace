@@ -2,7 +2,7 @@
 <launchConfiguration type="at.ac.tuwien.big.momot.lang.ui.MOMoTLaunchConfigurationType">
     <booleanAttribute key="org.eclipse.debug.core.ATTR_REFRESH_RECURSIVE" value="true"/>
     <stringAttribute key="org.eclipse.debug.core.ATTR_REFRESH_SCOPE" value="${workspace}"/>
-    <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="at.ac.tuwien.big.momot.examples.emfrefactor.EMFRefactorSearch"/>
-    <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="at.ac.tuwien.big.momot.examples.emfrefactor"/>
+    <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="at.ac.tuwien.big.momot.examples.ecore.derived.ModularizationQVT"/>
+    <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="at.ac.tuwien.big.momot.examples.ecore"/>
     <booleanAttribute key="org.eclipse.jdt.launching.STOP_IN_MAIN" value="false"/>
 </launchConfiguration>
