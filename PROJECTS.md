@@ -18,7 +18,7 @@ This guide provides a comprehensive breakdown of all 7 pre-loaded Model-Driven O
 
 ## 1. Stack Load-Balancing (`at.ac.tuwien.big.momot.examples.stack`)
 
-* **Documentation**: [MOMoT Stack Case Study](https://jku-win-se.github.io/MOMoT2/case-studies/stack/)
+* **Documentation**: [MOMoT Stack Case Study](https://jku-win-se.github.io/MOMoT2/casestudy/stack/)
 * **Problem Description**: A classic load-balancing optimization problem where integer values (loads) are shifted across a fixed set of stacks using graph transformation rules (`shiftLeft`, `shiftRight`) to minimize load variance and balance standard deviation across stacks.
 
 ### Key Artifacts
@@ -32,7 +32,7 @@ This guide provides a comprehensive breakdown of all 7 pre-loaded Model-Driven O
 
 ## 2. Class Responsibility Assignment (CRA) (`at.ac.tuwien.big.momot.examples.cra`)
 
-* **Documentation**: [MOMoT CRA Case Study](https://jku-win-se.github.io/MOMoT2/case-studies/cra/)
+* **Documentation**: [MOMoT CRA Case Study](https://jku-win-se.github.io/MOMoT2/casestudy/class_responsibility_assignment/)
 * **Problem Description**: Based on the TTC 2016 Class Responsibility Assignment benchmark. Synthesizes an optimal class diagram architecture by assigning a set of attributes and methods to classes to maximize cohesion and minimize coupling (maximizing the CRA Index metric).
 
 ### Key Artifacts
@@ -46,7 +46,7 @@ This guide provides a comprehensive breakdown of all 7 pre-loaded Model-Driven O
 
 ## 3. Class Modularization / Ecore Partitioning (`at.ac.tuwien.big.momot.examples.ecore`)
 
-* **Documentation**: [MOMoT Generic Modularization Case Study](https://jku-win-se.github.io/MOMoT2/case-studies/generic-modularization/)
+* **Documentation**: [MOMoT Generic Modularization Case Study](https://jku-win-se.github.io/MOMoT2/casestudy/generic_modularization/)
 * **Problem Description**: Modularizes large Ecore metamodels or class models into well-structured modules. Maximizes cohesion within modules and minimizes coupling between modules while preserving dependency semantics.
 
 ### Key Artifacts
@@ -61,7 +61,7 @@ This guide provides a comprehensive breakdown of all 7 pre-loaded Model-Driven O
 
 ## 4. EMF Refactor (`at.ac.tuwien.big.momot.examples.emfrefactor`)
 
-* **Documentation**: [MOMoT EMF Refactor Case Study](https://jku-win-se.github.io/MOMoT2/case-studies/emf-refactor/)
+* **Documentation**: [MOMoT EMF Refactor Case Study](https://jku-win-se.github.io/MOMoT2/casestudy/emfrefactor/)
 * **Problem Description**: Performs multi-objective refactoring of EMF models (Ecore and UML) using transformation units from EMF Refactor. Eliminates anti-patterns and code smells (e.g., speculative generality, empty classes) while minimizing transformation effort and maintaining model behavior.
 
 ### Key Artifacts
@@ -76,7 +76,7 @@ This guide provides a comprehensive breakdown of all 7 pre-loaded Model-Driven O
 
 ## 5. Software Module Clustering (JSME Benchmark) (`at.ac.tuwien.big.momot.examples.modularization.jsme`)
 
-* **Documentation**: [MOMoT Class Modularization Case Study](https://jku-win-se.github.io/MOMoT2/case-studies/modularization/)
+* **Documentation**: [MOMoT Class Modularization Case Study](https://jku-win-se.github.io/MOMoT2/casestudy/class_modularization/)
 * **Problem Description**: Module clustering benchmark based on the JSME dataset. Groups software classes into modules using graph transformations to maximize Modularization Quality (MQ), comparing MOMoT's rule-based search directly against native MOEA formulations.
 
 ### Key Artifacts
@@ -91,7 +91,7 @@ This guide provides a comprehensive breakdown of all 7 pre-loaded Model-Driven O
 
 ## 6. Software Architecture Refactoring / Class Diagram Restructuring (`at.ac.tuwien.big.momot.examples.refactoring`)
 
-* **Documentation**: [MOMoT Class Diagram Restructuring Case Study](https://jku-win-se.github.io/MOMoT2/case-studies/class-diagram-restructuring/)
+* **Documentation**: [MOMoT Class Diagram Restructuring Case Study](https://jku-win-se.github.io/MOMoT2/casestudy/class_restructuring/)
 * **Problem Description**: Restructures class diagrams by moving attributes/methods up or down inheritance hierarchies, extracting superclasses, and creating generalizations to reduce model complexity and eliminate redundancy.
 
 ### Key Artifacts
