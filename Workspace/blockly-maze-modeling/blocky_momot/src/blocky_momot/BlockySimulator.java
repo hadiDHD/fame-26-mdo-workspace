@@ -310,7 +310,7 @@ public final class BlockySimulator {
             min = r.minDistance;
             current = current.getNext();
         }
-        SimUtils.markWonIfStandingOnGoal(last, winCellType);
+        markWonIfStandingOnGoal(last, winCellType);
         return new ExecResult(last, min);
     }
 
@@ -616,7 +616,7 @@ public final class BlockySimulator {
             min = r.minDistance;
             current = current.getNext();
         }
-        SimUtils.markWonIfStandingOnGoal(last, winCellType);
+        markWonIfStandingOnGoal(last, winCellType);
         return new ExecResult(last, min);
     }
 
@@ -733,7 +733,7 @@ public final class BlockySimulator {
             last = executeSingle(stmt, last, trace, level, winCellType);
             current = current.getNext();
         }
-        SimUtils.markWonIfStandingOnGoal(last, winCellType);
+        markWonIfStandingOnGoal(last, winCellType);
         return last;
     }
 
@@ -745,7 +745,7 @@ public final class BlockySimulator {
             last = executeSingleLite(stmt, last, level, winCellType);
             current = current.getNext();
         }
-        SimUtils.markWonIfStandingOnGoal(last, winCellType);
+        markWonIfStandingOnGoal(last, winCellType);
         return last;
     }
 
@@ -940,5 +940,18 @@ public final class BlockySimulator {
             }
         }
         return curr;
+    }
+
+    private static void markWonIfStandingOnGoal(GameState state, CellType winCellType) {
+        if (state == null || winCellType == null) {
+            return;
+        }
+        if (state.getStatus() != GameStatus.RUNNING) {
+            return;
+        }
+        Cell pos = state.getPosition();
+        if (pos != null && pos.getType() == winCellType) {
+            state.setStatus(GameStatus.WON);
+        }
     }
 }

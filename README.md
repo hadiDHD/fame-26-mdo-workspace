@@ -49,6 +49,8 @@ The workspace includes standalone benchmark and example MDO projects inside `./W
 - `at.ac.tuwien.big.momot.examples.stack`: Stack load-balancing problem.
 - `blockly-maze-modeling`: Blockly Games Maze application and MOMoT synthesis (`blocky_model`, `blocky_game`, `blocky_momot`).
 
+For problem descriptions, official website links, and artifact locations for each project, see the **[Projects & Artifacts Guide](PROJECTS.md)**.
+
 ---
 
 ## Adding projects
