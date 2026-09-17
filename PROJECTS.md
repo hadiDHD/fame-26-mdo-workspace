@@ -1,121 +1,119 @@
 # FAME '26 MDO Workspace Projects & Artifacts Guide
 
-This guide provides a comprehensive breakdown of all 7 pre-loaded Model-Driven Optimization (MDO) example projects included in the `fame-26-mdo-workspace` repository. Each project section includes a problem description, links to official documentation or source repositories, and relative paths to key artifacts (metamodels, transformations, search configurations, inputs, and orchestration code).
+This document describes all pre-loaded MDO example projects in the `./Workspace` directory, providing problem descriptions, links to official documentation/repositories, and exact relative file paths to key project artifacts (metamodels, transformations, search configurations, problem inputs, and java code).
 
 ---
 
-## Overview of Included Projects
+## 1. Stack Load-Balancing Optimization (`at.ac.tuwien.big.momot.examples.stack`)
 
-1. [Stack Load-Balancing](#1-stack-load-balancing-atactuwienbigmomotexamplesstack)
-2. [Class Responsibility Assignment (CRA)](#2-class-responsibility-assignment-cra-atactuwienbigmomotexamplescra)
-3. [Class Modularization / Ecore Partitioning](#3-class-modularization--ecore-partitioning-atactuwienbigmomotexamplesecore)
-4. [EMF Refactor](#4-emf-refactor-atactuwienbigmomotexamplesemfrefactor)
-5. [Software Module Clustering (JSME Benchmark)](#5-software-module-clustering-jsme-benchmark-atactuwienbigmomotexamplesmodularizationjsme)
-6. [Software Architecture Refactoring / Class Diagram Restructuring](#6-software-architecture-refactoring--class-diagram-restructuring-atactuwienbigmomotexamplesrefactoring)
-7. [Blockly Maze Modeling & Synthesis](#7-blockly-maze-modeling--synthesis-blockly-maze-modeling)
+* **Documentation / Website**: [MOMoT Stack Case Study](https://jku-win-se.github.io/MOMoT2/case-studies/stack/)
+* **Problem Description**: A classic load-balancing optimization problem where integer loads are distributed across a fixed set of stacks. Graph transformation rules (`shiftLeft`, `shiftRight`) move loads between adjacent stacks to minimize total load variance and achieve an even load distribution.
 
----
-
-## 1. Stack Load-Balancing (`at.ac.tuwien.big.momot.examples.stack`)
-
-* **Documentation**: [MOMoT Stack Case Study](https://jku-win-se.github.io/MOMoT2/casestudy/stack/)
-* **Problem Description**: A classic load-balancing optimization problem where integer values (loads) are shifted across a fixed set of stacks using graph transformation rules (`shiftLeft`, `shiftRight`) to minimize load variance and balance standard deviation across stacks.
-
-### Key Artifacts
-* **Metamodel**: [Workspace/at.ac.tuwien.big.momot.examples.stack/model/stack.ecore](Workspace/at.ac.tuwien.big.momot.examples.stack/model/stack.ecore)
-* **Henshin Transformations**: [Workspace/at.ac.tuwien.big.momot.examples.stack/model/stack.henshin](Workspace/at.ac.tuwien.big.momot.examples.stack/model/stack.henshin)
-* **MOMoT Configuration**: [Workspace/at.ac.tuwien.big.momot.examples.stack/src/at/ac/tuwien/big/momot/examples/stack/StackSearchExample.momot](Workspace/at.ac.tuwien.big.momot.examples.stack/src/at/ac/tuwien/big/momot/examples/stack/StackSearchExample.momot)
-* **Java Orchestration**: [Workspace/at.ac.tuwien.big.momot.examples.stack/src/at/ac/tuwien/big/momot/examples/stack/StackOrchestration.java](Workspace/at.ac.tuwien.big.momot.examples.stack/src/at/ac/tuwien/big/momot/examples/stack/StackOrchestration.java)
-* **Problem Inputs**: [Workspace/at.ac.tuwien.big.momot.examples.stack/model/input/model/model_five_stacks.xmi](Workspace/at.ac.tuwien.big.momot.examples.stack/model/input/model/model_five_stacks.xmi)
+### Key Artifact Locations
+* **Metamodel**: `[Workspace/at.ac.tuwien.big.momot.examples.stack/model/stack.ecore](Workspace/at.ac.tuwien.big.momot.examples.stack/model/stack.ecore)`
+* **Henshin Transformations**: `[Workspace/at.ac.tuwien.big.momot.examples.stack/transformations/stack.henshin](Workspace/at.ac.tuwien.big.momot.examples.stack/transformations/stack.henshin)`
+* **MOMoT DSL Configuration**: `[Workspace/at.ac.tuwien.big.momot.examples.stack/src/at/ac/tuwien.big.momot.examples.stack/StackSearchExample.momot](Workspace/at.ac.tuwien.big.momot.examples.stack/src/at/ac/tuwien/big/momot/examples/stack/StackSearchExample.momot)`
+* **Java Search Orchestration**: `[Workspace/at.ac.tuwien.big.momot.examples.stack/src/at/ac/tuwien/big/momot/examples/stack/StackOrchestration.java](Workspace/at.ac.tuwien.big.momot.examples.stack/src/at/ac/tuwien/big/momot/examples/stack/StackOrchestration.java)`
+* **Problem Input Instances**: `[Workspace/at.ac.tuwien.big.momot.examples.stack/input/input_five_stacks.xmi](Workspace/at.ac.tuwien.big.momot.examples.stack/input/input_five_stacks.xmi)`
 
 ---
 
 ## 2. Class Responsibility Assignment (CRA) (`at.ac.tuwien.big.momot.examples.cra`)
 
-* **Documentation**: [MOMoT CRA Case Study](https://jku-win-se.github.io/MOMoT2/casestudy/class_responsibility_assignment/)
-* **Problem Description**: Based on the TTC 2016 Class Responsibility Assignment benchmark. Synthesizes an optimal class diagram architecture by assigning a set of attributes and methods to classes to maximize cohesion and minimize coupling (maximizing the CRA Index metric).
+* **Documentation / Website**: [MOMoT CRA Case Study](https://jku-win-se.github.io/MOMoT2/case-studies/cra/)
+* **Problem Description**: Based on the TTC 2016 Class Responsibility Assignment benchmark. Synthesizes an optimal class diagram architecture from a flat set of software features (attributes and methods) by assigning them to classes to maximize cohesion and minimize coupling (maximizing the CRA Index metric).
 
-### Key Artifacts
-* **Metamodel**: [Workspace/at.ac.tuwien.big.momot.examples.cra/metamodel/architecture.ecore](Workspace/at.ac.tuwien.big.momot.examples.cra/metamodel/architecture.ecore)
-* **Henshin Transformations**: [Workspace/at.ac.tuwien.big.momot.examples.cra/transformations/architecture.henshin](Workspace/at.ac.tuwien.big.momot.examples.cra/transformations/architecture.henshin)
-* **MOMoT Configuration**: [Workspace/at.ac.tuwien.big.momot.examples.cra/src/icmt/tool/momot/demo/ArchitectureSearch.momot](Workspace/at.ac.tuwien.big.momot.examples.cra/src/icmt/tool/momot/demo/ArchitectureSearch.momot)
-* **Java Orchestration & Fitness**: [Workspace/at.ac.tuwien.big.momot.examples.cra/src/icmt/tool/momot/demo/ArchitectureSearchJava.java](Workspace/at.ac.tuwien.big.momot.examples.cra/src/icmt/tool/momot/demo/ArchitectureSearchJava.java) & [FitnessCalculator.java](Workspace/at.ac.tuwien.big.momot.examples.cra/src/icmt/tool/momot/demo/FitnessCalculator.java)
-* **Problem Inputs & Solutions**: [Workspace/at.ac.tuwien.big.momot.examples.cra/problem/Cart_Item.xmi](Workspace/at.ac.tuwien.big.momot.examples.cra/problem/Cart_Item.xmi)
-
----
-
-## 3. Class Modularization / Ecore Partitioning (`at.ac.tuwien.big.momot.examples.ecore`)
-
-* **Documentation**: [MOMoT Generic Modularization Case Study](https://jku-win-se.github.io/MOMoT2/casestudy/generic_modularization/)
-* **Problem Description**: Modularizes large Ecore metamodels or class models into well-structured modules. Maximizes cohesion within modules and minimizes coupling between modules while preserving dependency semantics.
-
-### Key Artifacts
-* **Metamodel**: [Workspace/at.ac.tuwien.big.momot.examples.ecore/metamodel/Generic_Modularization_MM.ecore](Workspace/at.ac.tuwien.big.momot.examples.ecore/metamodel/Generic_Modularization_MM.ecore)
-* **Henshin Transformations**: [Workspace/at.ac.tuwien.big.momot.examples.ecore/operations/modularization_rules.henshin](Workspace/at.ac.tuwien.big.momot.examples.ecore/operations/modularization_rules.henshin)
-* **MOMoT Configuration**: [Workspace/at.ac.tuwien.big.momot.examples.ecore/src/at/ac/tuwien/big/momot/examples/ecore/ModularizationQVT.momot](Workspace/at.ac.tuwien.big.momot.examples.ecore/src/at/ac/tuwien/big/momot/examples/ecore/ModularizationQVT.momot)
-* **Java Search Orchestration**: [Workspace/at.ac.tuwien.big.momot.examples.ecore/src/at/ac/tuwien/big/momot/examples/ecore/ModularizationSearch.java](Workspace/at.ac.tuwien.big.momot.examples.ecore/src/at/ac/tuwien/big/momot/examples/ecore/ModularizationSearch.java)
-* **Metrics & Fitness Calculation**: [Workspace/at.ac.tuwien.big.momot.examples.ecore/src/at/ac/tuwien/big/momot/examples/ecore/fitness/](Workspace/at.ac.tuwien.big.momot.examples.ecore/src/at/ac/tuwien/big/momot/examples/ecore/fitness/)
-* **Problem Inputs**: [Workspace/at.ac.tuwien.big.momot.examples.ecore/input/](Workspace/at.ac.tuwien.big.momot.examples.ecore/input/)
+### Key Artifact Locations
+* **Metamodel**: `[Workspace/at.ac.tuwien.big.momot.examples.cra/metamodel/architecture.ecore](Workspace/at.ac.tuwien.big.momot.examples.cra/metamodel/architecture.ecore)`
+* **Henshin Transformations**: `[Workspace/at.ac.tuwien.big.momot.examples.cra/transformations/cra.henshin](Workspace/at.ac.tuwien.big.momot.examples.cra/transformations/cra.henshin)`
+* **MOMoT DSL Configuration**: `[Workspace/at.ac.tuwien.big.momot.examples.cra/src/icmt/tool/momot/demo/ArchitectureSearch.momot](Workspace/at.ac.tuwien.big.momot.examples.cra/src/icmt/tool/momot/demo/ArchitectureSearch.momot)`
+* **Java Execution & Fitness**:
+  * Search Runner: `[Workspace/at.ac.tuwien.big.momot.examples.cra/src/icmt/tool/momot/demo/ArchitectureSearchJava.java](Workspace/at.ac.tuwien.big.momot.examples.cra/src/icmt/tool/momot/demo/ArchitectureSearchJava.java)`
+  * Fitness Calculator: `[Workspace/at.ac.tuwien.big.momot.examples.cra/src/icmt/tool/momot/demo/FitnessCalculator.java](Workspace/at.ac.tuwien.big.momot.examples.cra/src/icmt/tool/momot/demo/FitnessCalculator.java)`
+* **Problem Input Models**: `[Workspace/at.ac.tuwien.big.momot.examples.cra/problem/Cart_Item.xmi](Workspace/at.ac.tuwien.big.momot.examples.cra/problem/Cart_Item.xmi)`
 
 ---
 
-## 4. EMF Refactor (`at.ac.tuwien.big.momot.examples.emfrefactor`)
+## 3. Metamodel Modularization (`at.ac.tuwien.big.momot.examples.ecore`)
 
-* **Documentation**: [MOMoT EMF Refactor Case Study](https://jku-win-se.github.io/MOMoT2/casestudy/emfrefactor/)
-* **Problem Description**: Performs multi-objective refactoring of EMF models (Ecore and UML) using transformation units from EMF Refactor. Eliminates anti-patterns and code smells (e.g., speculative generality, empty classes) while minimizing transformation effort and maintaining model behavior.
+* **Documentation / Website**: [MOMoT Generic Modularization Case Study](https://jku-win-se.github.io/MOMoT2/case-studies/generic-modularization/)
+* **Problem Description**: Partitions large Ecore metamodels into distinct modules or packages. The multi-objective optimization maximizes cohesion within individual modules while minimizing coupling across module boundaries, guided by semantic distance metrics (LCS / Cosine) calculated from element vocabulary.
 
-### Key Artifacts
-* **Transformations (Refactorings)**: [Workspace/at.ac.tuwien.big.momot.examples.emfrefactor/transformation/refactorings/](Workspace/at.ac.tuwien.big.momot.examples.emfrefactor/transformation/refactorings/)
-* **Transformations (Smells)**: [Workspace/at.ac.tuwien.big.momot.examples.emfrefactor/transformation/smells/](Workspace/at.ac.tuwien.big.momot.examples.emfrefactor/transformation/smells/)
-* **MOMoT Configuration**: [Workspace/at.ac.tuwien.big.momot.examples.emfrefactor/src/at/ac/tuwien/big/momot/examples/emfrefactor/emf.momot](Workspace/at.ac.tuwien.big.momot.examples.emfrefactor/src/at/ac/tuwien/big/momot/examples/emfrefactor/emf.momot)
-* **Java Search Orchestration**: [Workspace/at.ac.tuwien.big.momot.examples.emfrefactor/src/at/ac/tuwien/big/momot/examples/emfrefactor/EMFRefactoringOrchestration.java](Workspace/at.ac.tuwien.big.momot.examples.emfrefactor/src/at/ac/tuwien/big/momot/examples/emfrefactor/EMFRefactoringOrchestration.java)
-* **Launch Configuration**: [Workspace/at.ac.tuwien.big.momot.examples.emfrefactor/EMFRefactorSearch.launch](Workspace/at.ac.tuwien.big.momot.examples.emfrefactor/EMFRefactorSearch.launch)
-* **Problem Inputs**: [Workspace/at.ac.tuwien.big.momot.examples.emfrefactor/model/input/](Workspace/at.ac.tuwien.big.momot.examples.emfrefactor/model/input/)
+### Key Artifact Locations
+* **Metamodel**: `[Workspace/at.ac.tuwien.big.momot.examples.ecore/model/modularization.ecore](Workspace/at.ac.tuwien.big.momot.examples.ecore/model/modularization.ecore)`
+* **Henshin Transformations**: `[Workspace/at.ac.tuwien.big.momot.examples.ecore/transformations/modularization.henshin](Workspace/at.ac.tuwien.big.momot.examples.ecore/transformations/modularization.henshin)`
+* **MOMoT DSL Configuration**: `[Workspace/at.ac.tuwien.big.momot.examples.ecore/src/at/ac/tuwien/big/momot/examples/ecore/ModularizationQVT.momot](Workspace/at.ac.tuwien.big.momot.examples.ecore/src/at/ac/tuwien/big/momot/examples/ecore/ModularizationQVT.momot)`
+* **Java Search & Fitness**:
+  * Orchestration: `[Workspace/at.ac.tuwien.big.momot.examples.ecore/src/at/ac/tuwien/big/momot/examples/ecore/ModularizationSearch.java](Workspace/at.ac.tuwien.big.momot.examples.ecore/src/at/ac/tuwien/big/momot/examples/ecore/ModularizationSearch.java)`
+  * Fitness Metrics: `[Workspace/at.ac.tuwien.big.momot.examples.ecore/src/at/ac/tuwien/big/momot/examples/ecore/fitness/ModularizationFitnessFunction.java](Workspace/at.ac.tuwien.big.momot.examples.ecore/src/at/ac/tuwien/big/momot/examples/ecore/fitness/ModularizationFitnessFunction.java)`
+* **Problem Input Metamodels**: `[Workspace/at.ac.tuwien.big.momot.examples.ecore/input/](Workspace/at.ac.tuwien.big.momot.examples.ecore/input/)`
+
+---
+
+## 4. EMF Refactor Anti-Pattern Removal (`at.ac.tuwien.big.momot.examples.emfrefactor`)
+
+* **Documentation / Website**: [MOMoT EMF Refactor Case Study](https://jku-win-se.github.io/MOMoT2/case-studies/emf-refactor/)
+* **Problem Description**: Automated multi-objective refactoring for EMF models (Ecore and UML). Utilizes EMF Refactor transformation units to eliminate anti-patterns/smells (e.g., speculative generality, unused or empty elements) while minimizing transformation sequence length.
+
+### Key Artifact Locations
+* **Henshin Refactoring Transformations**: `[Workspace/at.ac.tuwien.big.momot.examples.emfrefactor/transformation/refactorings/](Workspace/at.ac.tuwien.big.momot.examples.emfrefactor/transformation/refactorings/)`
+* **Henshin Smell Detection Rules**: `[Workspace/at.ac.tuwien.big.momot.examples.emfrefactor/transformation/smells/](Workspace/at.ac.tuwien.big.momot.examples.emfrefactor/transformation/smells/)`
+* **MOMoT DSL Configuration**: `[Workspace/at.ac.tuwien.big.momot.examples.emfrefactor/src/at/ac/tuwien/big/momot/examples/emfrefactor/emf.momot](Workspace/at.ac.tuwien.big.momot.examples.emfrefactor/src/at/ac/tuwien/big/momot/examples/emfrefactor/emf.momot)`
+* **Java Search Orchestration**: `[Workspace/at.ac.tuwien.big.momot.examples.emfrefactor/src/at/ac/tuwien/big/momot/examples/emfrefactor/EMFRefactoringOrchestration.java](Workspace/at.ac.tuwien.big.momot.examples.emfrefactor/src/at/ac/tuwien/big/momot/examples/emfrefactor/EMFRefactoringOrchestration.java)`
+* **Eclipse Launch Configuration**: `[Workspace/at.ac.tuwien.big.momot.examples.emfrefactor/EMFRefactorSearch.launch](Workspace/at.ac.tuwien.big.momot.examples.emfrefactor/EMFRefactorSearch.launch)`
+* **Problem Input Models**: `[Workspace/at.ac.tuwien.big.momot.examples.emfrefactor/model/input/](Workspace/at.ac.tuwien.big.momot.examples.emfrefactor/model/input/)`
 
 ---
 
 ## 5. Software Module Clustering (JSME Benchmark) (`at.ac.tuwien.big.momot.examples.modularization.jsme`)
 
-* **Documentation**: [MOMoT Class Modularization Case Study](https://jku-win-se.github.io/MOMoT2/casestudy/class_modularization/)
-* **Problem Description**: Module clustering benchmark based on the JSME dataset. Groups software classes into modules using graph transformations to maximize Modularization Quality (MQ), comparing MOMoT's rule-based search directly against native MOEA formulations.
+* **Documentation / Website**: [MOMoT Class Modularization Case Study](https://jku-win-se.github.io/MOMoT2/case-studies/modularization/)
+* **Problem Description**: Class-level software module clustering based on the JSME benchmark dataset. Groups classes into modules using graph transformations to optimize Modularization Quality (MQ). Compares MOMoT rule-based transformation search against native MOEA problem implementations.
 
-### Key Artifacts
-* **Metamodel**: [Workspace/at.ac.tuwien.big.momot.examples.modularization.jsme/data/modularization_jsep.ecore](Workspace/at.ac.tuwien.big.momot.examples.modularization.jsme/data/modularization_jsep.ecore)
-* **Henshin Transformations**: [Workspace/at.ac.tuwien.big.momot.examples.modularization.jsme/data/modularization_jsep.henshin](Workspace/at.ac.tuwien.big.momot.examples.modularization.jsme/data/modularization_jsep.henshin)
-* **MOMoT Configurations**: [Workspace/at.ac.tuwien.big.momot.examples.modularization.jsme/src/at/ac/tuwien/big/momot/examples/modularization/jsme/ModularizationJSEP.momot](Workspace/at.ac.tuwien.big.momot.examples.modularization.jsme/src/at/ac/tuwien/big/momot/examples/modularization/jsme/ModularizationJSEP.momot) & [ModularizationJSEP_Runtime.momot](Workspace/at.ac.tuwien.big.momot.examples.modularization.jsme/src/at/ac/tuwien/big/momot/examples/modularization/jsme/ModularizationJSEP_Runtime.momot)
-* **Java Search Runners**: [ModularizationJSEPSearchECA.java](Workspace/at.ac.tuwien.big.momot.examples.modularization.jsme/src/at/ac/tuwien/big/momot/examples/modularization/jsme/ModularizationJSEPSearchECA.java) & [ModularizationJSEPSearchHillClimbing.java](Workspace/at.ac.tuwien.big.momot.examples.modularization.jsme/src/at/ac/tuwien/big/momot/examples/modularization/jsme/ModularizationJSEPSearchHillClimbing.java)
-* **Native MOEA Comparison**: [Workspace/at.ac.tuwien.big.momot.examples.modularization.jsme/src/at/ac/tuwien/big/momot/examples/modularization/jsme/moea/](Workspace/at.ac.tuwien.big.momot.examples.modularization.jsme/src/at/ac/tuwien/big/momot/examples/modularization/jsme/moea/)
-* **Problem Inputs**: [Workspace/at.ac.tuwien.big.momot.examples.modularization.jsme/data/input/models/](Workspace/at.ac.tuwien.big.momot.examples.modularization.jsme/data/input/models/)
-
----
-
-## 6. Software Architecture Refactoring / Class Diagram Restructuring (`at.ac.tuwien.big.momot.examples.refactoring`)
-
-* **Documentation**: [MOMoT Class Diagram Restructuring Case Study](https://jku-win-se.github.io/MOMoT2/casestudy/class_restructuring/)
-* **Problem Description**: Restructures class diagrams by moving attributes/methods up or down inheritance hierarchies, extracting superclasses, and creating generalizations to reduce model complexity and eliminate redundancy.
-
-### Key Artifacts
-* **Metamodel**: [Workspace/at.ac.tuwien.big.momot.examples.refactoring/model/refactoring.ecore](Workspace/at.ac.tuwien.big.momot.examples.refactoring/model/refactoring.ecore)
-* **Henshin Transformations**: [Workspace/at.ac.tuwien.big.momot.examples.refactoring/model/Refactoring.henshin](Workspace/at.ac.tuwien.big.momot.examples.refactoring/model/Refactoring.henshin)
-* **MOMoT Configuration**: [Workspace/at.ac.tuwien.big.momot.examples.refactoring/src/at/ac/tuwien/big/momot/examples/refactoring/Refactoring.momot](Workspace/at.ac.tuwien.big.momot.examples.refactoring/src/at/ac/tuwien/big/momot/examples/refactoring/Refactoring.momot)
-* **Java Search Orchestration**: [Workspace/at.ac.tuwien.big.momot.examples.refactoring/src/at/ac/tuwien/big/momot/examples/refactoring/RefactoringSearch.java](Workspace/at.ac.tuwien.big.momot.examples.refactoring/src/at/ac/tuwien/big/momot/examples/refactoring/RefactoringSearch.java) & [RefactoringOrchestration.java](Workspace/at.ac.tuwien.big.momot.examples.refactoring/src/at/ac/tuwien/big/momot/examples/refactoring/RefactoringOrchestration.java)
-* **Problem Inputs**: [Workspace/at.ac.tuwien.big.momot.examples.refactoring/model/](Workspace/at.ac.tuwien.big.momot.examples.refactoring/model/)
+### Key Artifact Locations
+* **Metamodel**: `[Workspace/at.ac.tuwien.big.momot.examples.modularization.jsme/model/modularization.ecore](Workspace/at.ac.tuwien.big.momot.examples.modularization.jsme/model/modularization.ecore)`
+* **Henshin Transformations**: `[Workspace/at.ac.tuwien.big.momot.examples.modularization.jsme/transformations/modularization.henshin](Workspace/at.ac.tuwien.big.momot.examples.modularization.jsme/transformations/modularization.henshin)`
+* **MOMoT DSL Configurations**:
+  * Standard: `[Workspace/at.ac.tuwien.big.momot.examples.modularization.jsme/src/at/ac/tuwien/big/momot/examples/modularization/jsme/ModularizationJSEP.momot](Workspace/at.ac.tuwien.big.momot.examples.modularization.jsme/src/at/ac/tuwien/big/momot/examples/modularization/jsme/ModularizationJSEP.momot)`
+  * Runtime Search: `[Workspace/at.ac.tuwien.big.momot.examples.modularization.jsme/src/at/ac/tuwien/big/momot/examples/modularization/jsme/ModularizationJSEP_Runtime.momot](Workspace/at.ac.tuwien.big.momot.examples.modularization.jsme/src/at/ac/tuwien/big/momot/examples/modularization/jsme/ModularizationJSEP_Runtime.momot)`
+* **Java Search Runners**:
+  * Evolutionary (ECA): `[ModularizationJSEPSearchECA.java](Workspace/at.ac.tuwien.big.momot.examples.modularization.jsme/src/at/ac/tuwien/big/momot/examples/modularization/jsme/ModularizationJSEPSearchECA.java)`
+  * Hill Climbing: `[ModularizationJSEPSearchHillClimbing.java](Workspace/at.ac.tuwien.big.momot.examples.modularization.jsme/src/at/ac/tuwien/big/momot/examples/modularization/jsme/ModularizationJSEPSearchHillClimbing.java)`
+* **Native MOEA Implementations**: `[Workspace/at.ac.tuwien.big.momot.examples.modularization.jsme/src/at/ac/tuwien/big/momot/examples/modularization/jsme/moea/](Workspace/at.ac.tuwien.big.momot.examples.modularization.jsme/src/at/ac/tuwien/big/momot/examples/modularization/jsme/moea/)`
+* **Problem Input Instances**: `[Workspace/at.ac.tuwien.big.momot.examples.modularization.jsme/model/input/](Workspace/at.ac.tuwien.big.momot.examples.modularization.jsme/model/input/)`
 
 ---
 
-## 7. Blockly Maze Modeling & Synthesis (`blockly-maze-modeling`)
+## 6. Software Architecture Refactoring (`at.ac.tuwien.big.momot.examples.refactoring`)
 
-* **Repository**: [jku-win-se/blockly-maze-modeling](https://github.com/jku-win-se/blockly-maze-modeling)
-* **Problem Description**: A JavaFX/EMF application replicating the Blockly Games Maze puzzle. Integrates MOMoT search-based optimization to automatically synthesize shortest valid Blockly program models (using move forward, turn, if path, repeat until) for maze levels 1–10 and for user Direct Manipulation target positions.
+* **Documentation / Website**: [MOMoT Class Diagram Restructuring Case Study](https://jku-win-se.github.io/MOMoT2/case-studies/class-diagram-restructuring/)
+* **Problem Description**: Restructures object-oriented class diagrams by pulling up or pushing down attributes and properties across inheritance hierarchies, creating generalizations, and extracting common superclasses to simplify design and maximize reusability.
 
-### Key Artifacts
-* **`blocky_model/` (EMF Metamodel)**:
-  * Metamodel: [Workspace/blockly-maze-modeling/blocky_model/model/blocky.ecore](Workspace/blockly-maze-modeling/blocky_model/model/blocky.ecore)
-* **`blocky_game/` (JavaFX Application & Web Bridge)**:
-  * UI & Web Bridge: [Workspace/blockly-maze-modeling/blocky_game/src/blocky_game/BlockyUI.java](Workspace/blockly-maze-modeling/blocky_game/src/blocky_game/BlockyUI.java) & [GameEngine.java](Workspace/blockly-maze-modeling/blocky_game/src/blocky_game/GameEngine.java)
-  * Embedded Web Application: [Workspace/blockly-maze-modeling/blocky_game/src/blocky_game/blockly-games-web/](Workspace/blockly-maze-modeling/blocky_game/src/blocky_game/blockly-games-web/)
-  * Direct Manipulation Request XMI: [Workspace/blockly-maze-modeling/blocky_game/direct_manipulation_request.xmi](Workspace/blockly-maze-modeling/blocky_game/direct_manipulation_request.xmi)
-* **`blocky_momot/` (MOMoT Program Synthesis)**:
-  * Input Level XMIs (Levels 1–10 & DM): [Workspace/blockly-maze-modeling/blocky_momot/model/input/](Workspace/blockly-maze-modeling/blocky_momot/model/input/)
-  * Simulator & Fitness Evaluation: [Workspace/blockly-maze-modeling/blocky_momot/src/blocky_momot/BlockySimulator.java](Workspace/blockly-maze-modeling/blocky_momot/src/blocky_momot/BlockySimulator.java) & [EnumParamPreprocessFitnessFunction.java](Workspace/blockly-maze-modeling/blocky_momot/src/blocky_momot/EnumParamPreprocessFitnessFunction.java)
-  * Empirical Benchmark Study: [Workspace/blockly-maze-modeling/blocky_momot/analysis/BENCHMARK.md](Workspace/blockly-maze-modeling/blocky_momot/analysis/BENCHMARK.md)
+### Key Artifact Locations
+* **Metamodel**: `[Workspace/at.ac.tuwien.big.momot.examples.refactoring/model/refactoring.ecore](Workspace/at.ac.tuwien.big.momot.examples.refactoring/model/refactoring.ecore)`
+* **Henshin Transformations**: `[Workspace/at.ac.tuwien.big.momot.examples.refactoring/transformations/refactoring.henshin](Workspace/at.ac.tuwien.big.momot.examples.refactoring/transformations/refactoring.henshin)`
+* **MOMoT DSL Configuration**: `[Workspace/at.ac.tuwien.big.momot.examples.refactoring/src/at/ac/tuwien/big/momot/examples/refactoring/Refactoring.momot](Workspace/at.ac.tuwien.big.momot.examples.refactoring/src/at/ac/tuwien/big/momot/examples/refactoring/Refactoring.momot)`
+* **Java Search Orchestration**: `[Workspace/at.ac.tuwien.big.momot.examples.refactoring/src/at/ac/tuwien/big/momot/examples/refactoring/RefactoringSearch.java](Workspace/at.ac.tuwien.big.momot.examples.refactoring/src/at/ac/tuwien/big/momot/examples/refactoring/RefactoringSearch.java)`
+* **Problem Input Diagrams**: `[Workspace/at.ac.tuwien.big.momot.examples.refactoring/model/input/](Workspace/at.ac.tuwien.big.momot.examples.refactoring/model/input/)`
+
+---
+
+## 7. Blockly Maze Program Synthesis (`blockly-maze-modeling`)
+
+* **Repository Link**: [jku-win-se/blockly-maze-modeling](https://github.com/jku-win-se/blockly-maze-modeling)
+* **Problem Description**: A JavaFX and EMF application recreating the Blockly Games Maze puzzle. Employs MOMoT multi-objective optimization to synthesize minimal, Pareto-optimal Blockly program models (using `move_forward`, `turn`, `if_path`, `repeat_until`) for navigation across maze levels 1–10 and user-teleported Direct Manipulation target cells.
+
+### Key Artifact Locations
+* **EMF Domain Metamodel (`blocky_model`)**:
+  * Ecore Metamodel: `[Workspace/blockly-maze-modeling/blocky_model/model/blocky.ecore](Workspace/blockly-maze-modeling/blocky_model/model/blocky.ecore)`
+  * Generated Java Classes: `[Workspace/blockly-maze-modeling/blocky_model/src-gen/blocky/](Workspace/blockly-maze-modeling/blocky_model/src-gen/blocky/)`
+* **JavaFX Application & Engine (`blocky_game`)**:
+  * User Interface & JSBridge: `[Workspace/blockly-maze-modeling/blocky_game/src/blocky_game/BlockyUI.java](Workspace/blockly-maze-modeling/blocky_game/src/blocky_game/BlockyUI.java)`
+  * Game Engine: `[Workspace/blockly-maze-modeling/blocky_game/src/blocky_game/GameEngine.java](Workspace/blockly-maze-modeling/blocky_game/src/blocky_game/GameEngine.java)`
+  * Direct Manipulation Request XMI: `[Workspace/blockly-maze-modeling/blocky_game/direct_manipulation_request.xmi](Workspace/blockly-maze-modeling/blocky_game/direct_manipulation_request.xmi)`
+  * Embedded Web UI: `[Workspace/blockly-maze-modeling/blocky_game/src/blocky_game/blockly-games-web/](Workspace/blockly-maze-modeling/blocky_game/src/blocky_game/blockly-games-web/)`
+* **MOMoT Program Synthesis (`blocky_momot`)**:
+  * Input Level Models (1.xmi – 10.xmi): `[Workspace/blockly-maze-modeling/blocky_momot/model/input/](Workspace/blockly-maze-modeling/blocky_momot/model/input/)`
+  * Headless Simulator: `[Workspace/blockly-maze-modeling/blocky_momot/src/blocky_momot/BlockySimulator.java](Workspace/blockly-maze-modeling/blocky_momot/src/blocky_momot/BlockySimulator.java)`
+  * Preprocessing Fitness Evaluator: `[Workspace/blockly-maze-modeling/blocky_momot/src/blocky_momot/EnumParamPreprocessFitnessFunction.java](Workspace/blockly-maze-modeling/blocky_momot/src/blocky_momot/EnumParamPreprocessFitnessFunction.java)`
+  * Empirical Benchmark & Evaluation: `[Workspace/blockly-maze-modeling/blocky_momot/analysis/BENCHMARK.md](Workspace/blockly-maze-modeling/blocky_momot/analysis/BENCHMARK.md)`

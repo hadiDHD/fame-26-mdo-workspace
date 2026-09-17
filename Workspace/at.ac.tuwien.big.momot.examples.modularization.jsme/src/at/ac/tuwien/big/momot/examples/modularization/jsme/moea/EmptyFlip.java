@@ -15,7 +15,6 @@ public class EmptyFlip extends AbstractMutationVariation {
       return new Solution[] { mutate(parents[0].copy()) };
    }
 
-   @Override
    public Solution mutate(final Solution copy) {
       return copy;
    }

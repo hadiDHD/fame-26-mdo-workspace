@@ -7,6 +7,7 @@ import at.ac.tuwien.big.moea.experiment.executor.listener.SeedRuntimePrintListen
 import at.ac.tuwien.big.moea.search.algorithm.provider.AbstractRegisteredAlgorithm;
 import at.ac.tuwien.big.moea.util.MathUtil;
 import at.ac.tuwien.big.momot.ModuleManager;
+import at.ac.tuwien.big.momot.TransformationResultManager;
 import at.ac.tuwien.big.momot.TransformationSearchOrchestration;
 import at.ac.tuwien.big.momot.examples.stack.stack.Stack;
 import at.ac.tuwien.big.momot.examples.stack.stack.StackModel;
@@ -25,11 +26,11 @@ import java.util.List;
 
 import org.moeaframework.algorithm.EpsilonMOEA;
 import org.moeaframework.algorithm.NSGAII;
-import org.moeaframework.core.population.ReferencePointNondominatedSortingPopulation;
+import org.moeaframework.algorithm.ReferencePointNondominatedSortingPopulation;
+import org.moeaframework.core.NondominatedPopulation;
 import org.moeaframework.core.operator.CompoundVariation;
 import org.moeaframework.core.operator.OnePointCrossover;
-import org.moeaframework.core.selection.TournamentSelection;
-import org.moeaframework.util.weights.NormalBoundaryDivisions;
+import org.moeaframework.core.operator.TournamentSelection;
 
 public class StackEvalSearch {
    private static final int SOLUTION_LENGTH = 8;
@@ -74,7 +75,7 @@ public class StackEvalSearch {
       search.addAlgorithm("NSGA-II", new AbstractRegisteredAlgorithm<NSGAII>() {
          @Override
          public NSGAII createAlgorithm() {
-            return new NSGAII(search.createProblem(), POPULATION_SIZE, search.createSortingPopulation(),
+            return new NSGAII(search.createProblem(), search.createSortingPopulation(),
                   search.createEpsilonBoxArchive(),
                   new TournamentSelection(2), new CompoundVariation(new OnePointCrossover(1.0),
                         new TransformationParameterMutation(0.25, manager), new TransformationPlaceholderMutation(0.1)),
@@ -85,8 +86,8 @@ public class StackEvalSearch {
       search.addAlgorithm("NSGA-III", new AbstractRegisteredAlgorithm<NSGAII>() {
          @Override
          public NSGAII createAlgorithm() {
-            return new NSGAII(search.createProblem(), POPULATION_SIZE,
-                  new ReferencePointNondominatedSortingPopulation(search.getProblem().getNumberOfObjectives(), new NormalBoundaryDivisions(4)),
+            return new NSGAII(search.createProblem(),
+                  new ReferencePointNondominatedSortingPopulation(search.getProblem().getNumberOfObjectives(), 0, 4),
                   search.createEpsilonBoxArchive(),
                   new TournamentSelection(2), new CompoundVariation(new OnePointCrossover(1.0),
                         new TransformationParameterMutation(0.25, manager), new TransformationPlaceholderMutation(0.1)),
@@ -97,7 +98,7 @@ public class StackEvalSearch {
       search.addAlgorithm("EpsilonMOEA", new AbstractRegisteredAlgorithm<EpsilonMOEA>() {
          @Override
          public EpsilonMOEA createAlgorithm() {
-            return new EpsilonMOEA(search.createProblem(), POPULATION_SIZE, search.createPopulation(),
+            return new EpsilonMOEA(search.createProblem(), search.createPopulation(),
                   search.createEpsilonBoxArchive(0.02),
                   new TournamentSelection(2), new CompoundVariation(new OnePointCrossover(1.0),
                         new TransformationParameterMutation(0.25, manager), new TransformationPlaceholderMutation(0.1)),
@@ -110,7 +111,6 @@ public class StackEvalSearch {
       // public RandomSearch createAlgorithm() {
       // return new RandomSearch(
       // search.createProblem(),
-      // POPULATION_SIZE,
       // search.createPopulationGenerator(POPULATION_SIZE),
       // search.createArchive());
       // }
@@ -120,15 +120,48 @@ public class StackEvalSearch {
             MAX_EVALUATIONS);
       experiment.setReferenceSetFile(REFERENCE_SET);
       experiment.setNumberOfRuns(NR_RUNS);
-      // experiment.setAllIndicators(true);
+
       experiment.addProgressListener(new SeedRuntimePrintListener());
 
       experiment.run();
 
       final SearchAnalysis analysis = new SearchAnalysis(experiment);
-      analysis.setAllIndicators(true);
-      analysis.setShowAll(true);
-      System.out.println(SearchResultManager.printObjectives(SearchResultManager.createApproximationSet(experiment)));
-      ;
+      analysis.setHypervolume(true);
+      analysis.setGenerationalDistance(true);
+      analysis.setInvertedGenerationalDistance(true);
+      analysis.setMaximumParetoFrontError(true);
+      analysis.setAdditiveEpsilonIndicator(true);
+      analysis.setContribution(true);
+      analysis.setSpacing(true);
+
+      analysis.analyze().printAnalysis();
+
+      SearchResultManager.saveObjectives(REFERENCE_SET, SearchResultManager.getReferenceSet(experiment));
+
+      final NondominatedPopulation nsga2 = SearchResultManager.createApproximationSet(experiment, "NSGA-II");
+      final NondominatedPopulation nsga3 = SearchResultManager.createApproximationSet(experiment, "NSGA-III");
+      final NondominatedPopulation epsmoea = SearchResultManager.createApproximationSet(experiment, "EpsilonMOEA");
+
+      SearchResultManager.saveObjectives("output/nsga2_objectives.pf", nsga2);
+      SearchResultManager.saveObjectives("output/nsga3_objectives.pf", nsga3);
+      SearchResultManager.saveObjectives("output/epsmoea_objectives.pf", epsmoea);
+
+      SearchResultManager.savePopulation("output/nsga2_solutions.txt", nsga2,
+            search.createPopulationWriter());
+      SearchResultManager.savePopulation("output/nsga3_solutions.txt", nsga3,
+            search.createPopulationWriter());
+      SearchResultManager.savePopulation("output/epsmoea_solutions.txt", epsmoea,
+            search.createPopulationWriter());
+
+      TransformationResultManager.saveSolutions("output/solutions/", "nsga2",
+            MomotUtil.asIterables(nsga2, TransformationSolution.class), search.createSolutionWriter());
+      TransformationResultManager.saveSolutions("output/solutions/", "nsga3",
+            MomotUtil.asIterables(nsga3, TransformationSolution.class), search.createSolutionWriter());
+      TransformationResultManager.saveSolutions("output/solutions/", "epsmoea",
+            MomotUtil.asIterables(epsmoea, TransformationSolution.class), search.createSolutionWriter());
+
+      TransformationResultManager.saveModels("output/models/", "nsga2", nsga2);
+      TransformationResultManager.saveModels("output/models/", "nsga3", nsga3);
+      TransformationResultManager.saveModels("output/models/", "epsmoea", epsmoea);
    }
 }
