@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<launchConfiguration type="org.eclipse.jdt.launching.localJavaApplication">
+<launchConfiguration type="at.ac.tuwien.big.momot.lang.ui.MOMoTLaunchConfigurationType">
     <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
         <listEntry value="/at.ac.tuwien.big.momot.examples.emfrefactor/src/at/ac/tuwien/big/momot/examples/emfrefactor/emf.momot"/>
     </listAttribute>
     <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
         <listEntry value="1"/>
+    </listAttribute>
+    <listAttribute key="org.eclipse.debug.ui.favoriteGroups">
+        <listEntry value="org.eclipse.debug.ui.launchGroup.run"/>
+        <listEntry value="org.eclipse.debug.ui.launchGroup.debug"/>
     </listAttribute>
     <booleanAttribute key="org.eclipse.jdt.launching.ATTR_ATTR_USE_ARGFILE" value="false"/>
     <booleanAttribute key="org.eclipse.jdt.launching.ATTR_SHOW_CODETEMPLATE_ONLY" value="false"/>
